@@ -27,7 +27,10 @@ class DigitalInput(object):
         self._previous_state = False
         self._pin = pin
         self._pin.init(self._pin.IN)
-        self._pin.irq(trigger=trigger, handler=self._callback)
+        if not callback is None:
+            self._pin.irq(trigger=trigger, handler=self._callback)
+        else: 
+            self._pin.irq(trigger=trigger, handler=None)
 
     def _callback(self, pin):
         irq_state = machine.disable_irq()
@@ -53,3 +56,8 @@ class DigitalInput(object):
             self._user_callback(self._pin, self._current_state)
 
         machine.enable_irq(irq_state)
+
+    def deinit(self):
+        "clean up callback and trigger"
+        _ = self._pin.irq(handler=None, trigger=0)
+    

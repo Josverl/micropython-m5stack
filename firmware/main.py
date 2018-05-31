@@ -69,3 +69,9 @@ def button_hander_c(pin, pressed):
 a = m5stack.ButtonA(callback=button_hander_a)
 b = m5stack.ButtonB(callback=button_hander_b)
 c = m5stack.ButtonC(callback=button_hander_c)
+
+''' when completed 
+a.deinit()
+c.deinit()
+c.deinit()
+'''
